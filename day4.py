@@ -1,5 +1,4 @@
 import sys
-import re
 
 grid = []
 
@@ -8,7 +7,6 @@ with open('day4.txt', 'r') as file:
         grid.append(list(line))
 
 def xmas_count(grid):
-  visited = set()
   count = 0
   for r in range(len(grid)):
     for c in range(len(grid[0])):
