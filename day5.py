@@ -1,9 +1,22 @@
 import sys
+from functools import cmp_to_key
 
 rules_done = False
 rules = dict()
 updates = []
 sum = 0
+
+def sortFunc(val1, val2):
+  val1 = int(val1)
+  val2 = int(val2)
+  if val1 not in rules:
+    return 1
+  if val2 in rules[val1]:
+     return -1
+  if val1 in rules[val2]:
+    return 1
+  return 0
+
 with open('day5.txt', 'r') as file:
     for line in file.read().splitlines():
         if (line == ''):
@@ -27,7 +40,7 @@ with open('day5.txt', 'r') as file:
               if curr not in rules or next not in rules[curr]:
                   is_valid = False
                   break
-        if is_valid:
-            sum += int(update[(int((update_len - 1) / 2))])
+        if not is_valid:
+            sorted_list = sorted(update, key=cmp_to_key(sortFunc))
+            sum += int(sorted_list[(int((update_len - 1) / 2))])
     print(sum)
-
